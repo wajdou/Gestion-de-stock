@@ -15,6 +15,9 @@ public class Roles extends  AbstractEntity{
     @Column(name = "role_name")
     private String roleName;
 
+    @Column(name = "id_entreprise")
+    private Integer idEntreprise;
+
     @ManyToOne
     @JoinColumn(name="idutilisateur")
     private Utilisateur utilisateur;

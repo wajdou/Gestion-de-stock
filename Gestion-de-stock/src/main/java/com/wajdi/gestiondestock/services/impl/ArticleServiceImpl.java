@@ -1,0 +1,85 @@
+package com.wajdi.gestiondestock.services.impl;
+
+import com.wajdi.gestiondestock.dto.ArticleDto;
+import com.wajdi.gestiondestock.execption.EntityNotFoundException;
+import com.wajdi.gestiondestock.execption.ErrorCodes;
+import com.wajdi.gestiondestock.execption.InvalidEntityException;
+import com.wajdi.gestiondestock.model.Article;
+import com.wajdi.gestiondestock.model.CommandeFournisseur;
+import com.wajdi.gestiondestock.model.LigneCommandeClient;
+import com.wajdi.gestiondestock.repositories.ArticleRepository;
+import com.wajdi.gestiondestock.services.ArticleService;
+import com.wajdi.gestiondestock.validator.ArticleValidator;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@Slf4j
+public class ArticleServiceImpl implements ArticleService {
+    private ArticleRepository articleRepository;
+    @Autowired
+    public ArticleServiceImpl(
+            ArticleRepository articleRepository) {
+        this.articleRepository=articleRepository;
+
+    }
+
+    @Override
+    public ArticleDto save(ArticleDto dto) {
+
+        List <String> errors= ArticleValidator.validate(dto);
+        if (!errors.isEmpty()) {
+            log.error("Article is not found {}",dto);
+            throw new InvalidEntityException("l artcile n est pas valide", ErrorCodes.ARTICLE_NOT_FOUND,errors);
+        }
+        return ArticleDto.fromEntity(articleRepository.save(ArticleDto.toEntity(dto)));
+    }
+
+    @Override
+    public ArticleDto findById(Integer id) {
+        if(id==null) {
+            log.error("Article ID est null");
+            return null;
+
+        }
+        Optional <Article> article=articleRepository.findById(id);
+
+        return Optional.of(ArticleDto.fromEntity(article.get())).orElseThrow(() ->
+            new EntityNotFoundException("Aucun article ave l ID"+id+"n a été toruvé dans la bd",ErrorCodes.ARTICLE_NOT_FOUND));
+
+    }
+
+
+    @Override
+    public ArticleDto findByCodeArticle(String codeArticle) {
+        if(codeArticle==null) {
+            log.error("Code Article est null");
+            return null;
+    }
+
+        Optional <Article> article=articleRepository.findArticleByCodeArticle(codeArticle);
+
+        return Optional.of(ArticleDto.fromEntity(article.get())).orElseThrow(() ->
+                new EntityNotFoundException("Aucun article ave le code "+codeArticle+"n a été toruvé dans la bd",ErrorCodes.ARTICLE_NOT_FOUND));
+
+    }
+
+    @Override
+    public List<ArticleDto> findAll() {
+        return null;
+    }
+
+    @Override
+    public void delete(Integer id) {
+        if(id==null) {
+            log.error("Article ID est null");
+
+    }
+        articleRepository.findById(id);
+
+    }
+}
