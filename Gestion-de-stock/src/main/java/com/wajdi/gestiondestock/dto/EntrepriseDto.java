@@ -31,19 +31,19 @@ public class EntrepriseDto {
 
     private List<UtilisateurDto> utilisateurs;
 
-    public static EntrepriseDto fromEntity(EntrepriseDto entrepriseDto) {
-        if(entrepriseDto == null) {
+    public static EntrepriseDto fromEntity(Entreprise entreprise) {
+        if(entreprise == null) {
             //to do throug exception
             return  null ;
         }
         //ici c l inverse cad du client dto vers client
         return  EntrepriseDto.builder()
-                .nom(entrepriseDto.getNom())
-                .description(entrepriseDto.getDescription())
-                .adresse(entrepriseDto.getAdresse())
-                .codeFiscal(entrepriseDto.getCodeFiscal())
-                .email(entrepriseDto.getEmail())
-                .numTel(entrepriseDto.getNumTel())
+                .nom(entreprise.getNom())
+                .description(entreprise.getDescription())
+              //  .adresse(entreprise.getAdresse())
+                .codeFiscal(entreprise.getCodeFiscal())
+                .email(entreprise.getEmail())
+                .numTel(entreprise.getNumTel())
                 .build();
     }
 

@@ -1,5 +1,6 @@
 package com.wajdi.gestiondestock.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wajdi.gestiondestock.model.Client;
 import com.wajdi.gestiondestock.model.CommandeClient;
 import lombok.Builder;
@@ -18,7 +19,7 @@ public class CommandeClientDto {
     private Instant dateCommande;
 
     private ClientDto client;
-
+@JsonIgnore
     private List<LigneCommandeClientDto> ligneCommandeClients;
 
     public static CommandeClientDto fromEntity(CommandeClient commandeClient) {

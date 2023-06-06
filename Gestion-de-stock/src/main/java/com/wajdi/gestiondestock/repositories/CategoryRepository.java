@@ -4,5 +4,9 @@ import com.wajdi.gestiondestock.model.Article;
 import com.wajdi.gestiondestock.model.Categorie;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CategoryRepository extends JpaRepository<Integer, Categorie> {
+import java.util.Optional;
+
+public interface CategoryRepository extends JpaRepository<Categorie,Integer> {
+    Optional< Categorie> findCategorieByCodeCategorie (String codeCategorie);
+
 }

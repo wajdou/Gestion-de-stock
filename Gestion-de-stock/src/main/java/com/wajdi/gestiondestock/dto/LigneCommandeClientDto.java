@@ -1,5 +1,6 @@
 package com.wajdi.gestiondestock.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wajdi.gestiondestock.model.Client;
 import com.wajdi.gestiondestock.model.LigneCommandeClient;
 import jakarta.persistence.Column;
@@ -16,7 +17,7 @@ public class LigneCommandeClientDto {
     private Integer id;
 
     private ArticleDto article;
-
+@JsonIgnore
     private CommandeClientDto commandeClient;
 
     private BigDecimal quantite;
