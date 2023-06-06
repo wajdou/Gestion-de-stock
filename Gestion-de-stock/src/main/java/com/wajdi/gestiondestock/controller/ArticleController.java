@@ -4,7 +4,6 @@ import com.wajdi.gestiondestock.controller.api.ArticleApi;
 import com.wajdi.gestiondestock.dto.ArticleDto;
 import com.wajdi.gestiondestock.services.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -16,6 +15,15 @@ private ArticleService articleService;
 @Autowired
     public ArticleController(ArticleService articleService) {
     this.articleService=articleService;
+
+    @RestController
+public class ArticleController  implements ArticleApi {
+    private ArticleService articleService;
+
+    @Autowired
+
+    public ArticleController(ArticleService articleService) {
+        this.articleService = articleService;
     }
 
     @Override
@@ -40,6 +48,7 @@ private ArticleService articleService;
 
     @Override
     public void delete(Integer id) {
+
     articleService.delete(id);
 
     }
@@ -47,4 +56,8 @@ private ArticleService articleService;
     //pour savoir qu elle service doit je injecter,tu crée artivleServiceImpl1
     //@Qualifier("articleServiceImpl1")
   //  private ArticleService articleService;
+
+        articleService.delete(id );
+    }
+
 }
