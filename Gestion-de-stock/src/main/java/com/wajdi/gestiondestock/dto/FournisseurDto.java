@@ -26,19 +26,19 @@ public class FournisseurDto {
 
     private List<CommandeFournisseurDto> commandeFournisseurs;
 
-    public static FournisseurDto fromEntity(FournisseurDto fournisseurDto) {
-        if(fournisseurDto == null) {
+    public static FournisseurDto fromEntity(Fournisseur fournisseur) {
+        if(fournisseur == null) {
             //to do throug exception
             return  null ;
         }
         //ici c l inverse cad du client dto vers client
         return  FournisseurDto.builder()
-                .nom(fournisseurDto.getNom())
-                .prenom(fournisseurDto.getPrenom())
-                .adresse(fournisseurDto.getAdresse())
-                .photo(fournisseurDto.getPhoto())
-                .mail(fournisseurDto.getMail())
-                .numTel(fournisseurDto.getNumTel())
+                .nom(fournisseur.getNom())
+                .prenom(fournisseur.getPrenom())
+                //.adresse(fournisseur.getAdresse())
+                .photo(fournisseur.getPhoto())
+                .mail(fournisseur.getMail())
+                .numTel(fournisseur.getNumTel())
                 .build();
     }
 

@@ -8,6 +8,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@RestController
+public class ArticleController implements ArticleApi {
+private ArticleService articleService;
+
+@Autowired
+    public ArticleController(ArticleService articleService) {
+    this.articleService=articleService;
+
     @RestController
 public class ArticleController  implements ArticleApi {
     private ArticleService articleService;
@@ -40,6 +48,16 @@ public class ArticleController  implements ArticleApi {
 
     @Override
     public void delete(Integer id) {
+
+    articleService.delete(id);
+
+    }
+    // @Autowired
+    //pour savoir qu elle service doit je injecter,tu crée artivleServiceImpl1
+    //@Qualifier("articleServiceImpl1")
+  //  private ArticleService articleService;
+
         articleService.delete(id );
     }
+
 }
